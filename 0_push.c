@@ -1,14 +1,15 @@
 #include "monty.h"
 
-void f_push(stack_t **stack, unsigned int line_number)
+void push(stack_t **s, int value)
 {
-	if (line_number == '\0')
+	stack_t *nw_nd = malloc(sizeof(stack_t))
+	if (value == NULL)
 	{
-		fprintf(stderr, "L<line_number>: usage: push integer\n");
+		fprintf(stderr, "L%u: usage: push integer\n", value);
 		exit(EXIT_FAILURE);
 	}
-	stack->n[stack->next] = line_number;
-	stack->next++;
+	s->n[s->next] = value;
+	s->next++;
 }
 int pop(stack_t **stack)
 {
