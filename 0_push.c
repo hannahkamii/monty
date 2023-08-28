@@ -2,49 +2,53 @@
 
 void push(stack_t **s, int value)
 {
-	stack_t *nw_nd = malloc(sizeof(stack_t))
-	if (value == NULL)
+	stack_t *nw_nd = malloc(sizeof(stack_t));
+
+	if (*s == NULL)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", value);
 		exit(EXIT_FAILURE);
 	}
-	s->n[s->next] = value;
-	s->next++;
-}
-int pop(stack_t **stack)
-{
-	if (stack->next == 0)
+	nw_nd->n = value;
+	nw_nd->prev = NULL;
+	nw_nd->next = *s;
+	
+	if (*s != NULL)
 	{
-		printf("L<line_number>: can't pint, stack empty\n", __LINE__);
-		exit(EXIT_FAILURE);
+		(*s)->prev = nw_nd;
 	}
-	unsigned int line_number = stack->n[stack->next - 1];
-
-	stack->next--;
-
-	return (line_number);
+	*s = nw_nd;
 }
-void f_pint(stack_t **stack)
+void pall(stack_t **s, unsigned int line_number)
 {
-	printf("%d\n", pop(stack));
+	stack_t *cnt = *s;
+
+	(void)line_number;
+
+	while (cnt != NULL)
+	{
+		printf("%d\n", cnt->n);
+		cnt = cnt->next;
+	}
 }
 int main(void)
 {
-	stack_t stack;
+	stack_t *s = NULL;
 
-	stack.next = 0;
+	push(&s, 1);
+	push(&s, 2);
+	push(&s, 3);
 
-	stack.n = NULL;
+	pall(&s, 4);
 
-	push(&stack, 1);
-	push(&stack, 2);
-	push(&stack, 3);
+	while (s != NULL)
+	{
+		stack_t *temp = s;
 
-	pint(&stack);
-	pint(&stack);
-	pint(&stack);
+		s = s->next;
 
-	free(stack.n);
+		free(temp);
+	}
 
 	return (0);
 }
