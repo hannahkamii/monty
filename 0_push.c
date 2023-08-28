@@ -1,5 +1,11 @@
 #include "monty.h"
 
+/**
+ * push - insert elements into stack
+ * @s: stack head
+ * @value: value to push
+ */
+
 void push(stack_t **s, int value)
 {
 	stack_t *nw_nd = malloc(sizeof(stack_t));
@@ -19,6 +25,13 @@ void push(stack_t **s, int value)
 	}
 	*s = nw_nd;
 }
+
+/**
+ * pall - print content of stack
+ * @s: stack head
+ * @line_number: linenumber
+ */
+
 void pall(stack_t **s, unsigned int line_number)
 {
 	stack_t *cnt = *s;
@@ -28,27 +41,7 @@ void pall(stack_t **s, unsigned int line_number)
 	while (cnt != NULL)
 	{
 		printf("%d\n", cnt->n);
+
 		cnt = cnt->next;
 	}
-}
-int main(void)
-{
-	stack_t *s = NULL;
-
-	push(&s, 1);
-	push(&s, 2);
-	push(&s, 3);
-
-	pall(&s, 4);
-
-	while (s != NULL)
-	{
-		stack_t *temp = s;
-
-		s = s->next;
-
-		free(temp);
-	}
-
-	return (0);
 }
